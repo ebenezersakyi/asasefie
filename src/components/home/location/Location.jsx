@@ -3,16 +3,41 @@ import Heading from "../../common/Heading"
 import { location } from "../../data/Data"
 import "./style.css"
 
+import { Link, useHistory } from 'react-router-dom';
+
 const Location = () => {
+  const history = useHistory();
+
+  const search = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        history.push({
+          pathname: '/search',
+          search: '?update=true',  // query string
+          state: {  // location state
+            coords: {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }, 
+          },
+        }); 
+      },
+      (error) => {
+        alert(error.message)
+      }
+    );
+  }
+
   return (
     <>
       <section className='location padding'>
         <div className='container'>
-          <Heading title='Explore By Location' subtitle='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.' />
+          <Heading title='Explore By Location' subtitle='' />
 
           <div className='content grid3 mtop'>
             {location.map((item, index) => (
               <div className='box' key={index}>
+                <a onClick={() =>{ if(item.name == 'Your Current Location'){search() } }}></a>
                 <img src={item.cover} alt='' />
                 <div className='overlay'>
                   <h5>{item.name}</h5>
