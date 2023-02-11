@@ -22,6 +22,12 @@ const RecentCard = (props) => {
                 <p>
                   <i className='fa fa-location-dot'></i> {val.country}
                 </p>
+                <p>
+                  {val.description}
+                </p>
+                <p>
+                  {val.finishedSquareFeet} sqft
+                </p>
               </div>
               <div className='button flex'>
                 <div>

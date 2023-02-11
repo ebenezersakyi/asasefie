@@ -1,9 +1,16 @@
+.content__mtop__grid3{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .team .box {
   background: #ffffff;
   border-radius: 6px;
   border: 1px solid rgb(62 28 131 / 10%);
   padding: 2rem;
   transition: 0.5s;
+  width: 45%;
+  margin: 10px;
 }
 .team .box:hover {
   box-shadow: 0 0 20px 0 rgb(112 121 138 / 18%);
@@ -69,4 +76,22 @@
 .team .button i {
   color: white;
   font-size: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .content__mtop__grid3{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .team .box {
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid rgb(62 28 131 / 10%);
+    padding: 2rem;
+    transition: 0.5s;
+    width: 100%;
+    margin: 10px;
+  }
 }

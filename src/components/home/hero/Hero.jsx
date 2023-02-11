@@ -45,7 +45,7 @@ const Hero = () => {
 
           <form className='flex'>
             <div className='box'>
-              <span>City/Street</span>
+              {/* <span>City/Street</span> */}
               {/* <input type='text' placeholder='Location' /> */}
 
               <PlacesAutocomplete
@@ -104,7 +104,7 @@ const Hero = () => {
               <span>Property Type</span>
               <input type='range' placeholder='Property Type' />
             </div> */}
-            <div className='box'>
+            {/* <div className='box'>
               <span>Price Range ($)</span>
               <input
                 type="range"
@@ -114,7 +114,7 @@ const Hero = () => {
                 // value={this.state.maxValue}
                 // onChange={this.handleMaxChange}
               />            
-            </div>
+            </div> */}
             {/* <div className='box'>
               <h4>Advance Filter</h4>
             </div> */}

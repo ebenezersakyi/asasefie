@@ -9,13 +9,17 @@ const Team = (props) => {
     // console.log('props', props)
   },[props.agentDetails])
 
+  const callPhoneNumber = (item) => {
+    window.open(`tel:${item}`);
+  }
+
   return (
     <>
       <section className='team background'>
         <div className='container'>
           <Heading title='Our Featured Agents' subtitle='' />
 
-          <div className='content mtop grid3'>
+          <div className='content__mtop__grid3'>
             {props.agentDetails.slice(0,6).map((val, index) => (
               <div className='box' key={index}>
                 <button className='btn3'>{val.houses.length} Listings</button>
@@ -38,7 +42,7 @@ const Team = (props) => {
                       <i className='fa fa-envelope'></i>
                       Message
                     </button>
-                    <button className='btn4'>
+                    <button onClick={() => callPhoneNumber(val.businessPhone)} className='btn4'>
                       <i className='fa fa-phone-alt'></i>
                     </button>
                   </div>

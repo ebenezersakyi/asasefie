@@ -3,11 +3,13 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 90vh;
+  /* height: 90vh; */
+  min-height: 90vh;
   width: 100%;
 }
 .hero .container {
   padding-top: 15%;
+  padding-bottom: 10px;
 }
 .hero h1 {
   color: #fff;
@@ -39,7 +41,7 @@ input::placeholder {
   color: black;
 }
 form .box {
-  padding: 15px;
+  /* padding: 15px; */
   border-left: 1px solid rgba(128, 128, 128, 0.2);
 }
 form .box:nth-child(1) {
@@ -48,6 +50,14 @@ form .box:nth-child(1) {
 form h4 {
   font-weight: 500;
 }
+
+.location-search-input{
+  /* display: flex; */
+  height: 100%;
+  width: 100%;
+  /* flex: 1; */
+}
+
 @media screen and (max-width: 800px) {
   .hero .container {
     padding-top: 30%;

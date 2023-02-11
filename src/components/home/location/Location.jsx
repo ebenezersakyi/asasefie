@@ -39,7 +39,7 @@ const Location = () => {
               <div className='box' key={index}>
                 <a onClick={() =>{ if(item.name == 'Your Current Location'){search() } }}>
                   <img src={item.cover} alt='' />
-                  <div className='overlay'>
+                  <div className=''>
                     <h5>{item.name}</h5>
                     <p>
                       <label>{item.Villas}</label>
