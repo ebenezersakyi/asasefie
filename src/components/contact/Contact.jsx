@@ -2,6 +2,7 @@ import React from "react"
 import img from "../images/pricing.jpg"
 import Back from "../common/Back"
 import "./contact.css"
+import Footer from "../common/footer/Footer"
 
 const Contact = () => {
   return (
@@ -21,6 +22,7 @@ const Contact = () => {
           </form>
         </div>
       </section>
+      <Footer />
     </>
   )
 }

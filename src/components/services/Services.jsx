@@ -3,6 +3,7 @@ import img from "../images/services.jpg"
 import Back from "../common/Back"
 import "../home/featured/Featured.css"
 import FeaturedCard from "../home/featured/FeaturedCard"
+import Footer from "../common/footer/Footer"
 
 const Services = () => {
   return (
@@ -13,6 +14,7 @@ const Services = () => {
           <FeaturedCard />
         </div>
       </section>
+      <Footer />
     </>
   )
 }

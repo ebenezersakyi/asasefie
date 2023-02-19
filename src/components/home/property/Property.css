@@ -1,0 +1,87 @@
+.container__house{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.house-listing {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  overflow: hidden;
+}
+
+.house-listing-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.house-listing-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.house-listing-image:hover {
+  transform: scale(1.05);
+}
+
+.house-listing-sale-type {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 0.8rem;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #3F51B5;
+}
+
+.house-listing-sale-type.for-rent {
+  background-color: #FF5722;
+}
+.house-listing-sale-type.for-sale {
+  background-color: #FF5722;
+}
+
+.house-listing-details {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.house-listing-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #3F51B5;
+}
+
+.house-listing-bed-bath-sqft {
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.house-listing-address {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.house-listing-city {
+  color: #666;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}

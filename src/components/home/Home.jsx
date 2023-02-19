@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
+import Footer from "../common/footer/Footer"
 import Awards from "./awards/Awards"
 import Featured from "./featured/Featured"
 import Hero from "./hero/Hero"
 import Location from "./location/Location"
 import Price from "./price/Price"
-import Recent from "./recent/Recent"
+import Recent from "./property/Property"
 import Team from "./team/Team"
 
 const Home = () => {
@@ -25,7 +26,7 @@ const Home = () => {
       const houses = response.data.map((item) => {
         return item.houses
       }).flat(1)
-      console.log('houses', houses)
+      // console.log('houses', houses)
       setHomesFromVerifiedAgents(houses)
 
     }catch(err){
@@ -36,12 +37,13 @@ const Home = () => {
   return (
     <>
       <Hero />
-      <Featured />
+      {/* <Featured /> */}
       <Recent title={'Homes For You'} houses={homesFromVerifiedAgents} />
       {/* <Awards /> */}
-      <Location />
-      <Team agentDetails={VerifiedAgentData} />
+      {/* <Location /> */}
+      {/* <Team agentDetails={VerifiedAgentData} /> */}
       {/* <Price /> */}
+      <Footer />
     </>
   )
 }

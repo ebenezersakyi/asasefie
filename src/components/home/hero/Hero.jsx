@@ -43,7 +43,7 @@ const Hero = () => {
         <div className='container'>
           <Heading title='Search Your Next Home ' subtitle='Find new & featured property located in your local city.' />
 
-          <form className='flex'>
+          <div className='input__container'>
             <div className='box'>
               {/* <span>City/Street</span> */}
               {/* <input type='text' placeholder='Location' /> */}
@@ -54,16 +54,16 @@ const Hero = () => {
                 onSelect={handleSelect}
               >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                  <div>
+                  <div style={{ width: '100%' }}>
                     <input
                       {...getInputProps({
                         placeholder: 'Search Places ...',
-                        className: 'location-search-input',
+                        className: 'input__box',
                       })}
                     />
                     <div className="autocomplete-dropdown-container">
                       {loading &&                         
-                        <div style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', width: '80%', margin: 15 }}>          
+                        <div style={{ justifyContent: 'center', backgroundColor: 'white', padding: 10, borderRadius: 9, alignItems: 'center', display: 'flex', width: '80%', margin: 3 }}>          
                           <PacmanLoader 
                             size={10}
                             color={'black'}
@@ -76,7 +76,7 @@ const Hero = () => {
                           : 'suggestion-item';
                         // inline style for demonstration purpose
                         const style = suggestion.active
-                          ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                          ? { backgroundColor: 'silver', cursor: 'pointer' }
                           : { backgroundColor: '#ffffff', cursor: 'pointer' };
                         return (
                           <div
@@ -118,10 +118,10 @@ const Hero = () => {
             {/* <div className='box'>
               <h4>Advance Filter</h4>
             </div> */}
-            <button onClick={() => { navigateToSearch() }} className='btn1'>
-              <i className='fa fa-search'></i>
-            </button>
-          </form>
+            {/* <button onClick={() => { navigateToSearch() }} className='serach__button__div'>
+            </button> */}
+              <i onClick={() => { navigateToSearch() }} className='fa fa-search'></i>
+          </div>
         </div>
       </section>
     </>

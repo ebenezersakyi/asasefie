@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import Recent from '../home/recent/Recent';
+import Recent from '../home/property/Property';
 
 import { BeatLoader } from 'react-spinners';
+import MapComponent from './map/MapComponent';
 
 const pointInPolygon = require('point-in-polygon');
 
@@ -96,33 +97,41 @@ export class Search extends Component {
       this.setState({ housesToRender: removeUndefined, loadingHouses: false })
       // this.setState({ showMarkers: true })
     }
+    
 
   render() {
     return (
-      <>
-        {this.state.loadingHouses?(
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} className="container">
-            <BeatLoader 
-              size={90}
-              color={'black'}
-            />
-          </div>
-        ):(
-          <div>
-            {this.state.housesToRender.length == 0? (
-              <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', height: '100vh' }} className="container">
-                <BeatLoader 
-                  size={50}
-                  color={'black'}
-                />
-                <h1>No results</h1>
-              </div>
-            ):(
-              <Recent title={'Results'} houses={this.state.housesToRender} />
-            )}
-          </div>
-        )}
-      </>
+      // <>
+      //   {this.state.loadingHouses?(
+      //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} className="container">
+      //       <BeatLoader 
+      //         size={90}
+      //         color={'black'}
+      //       />
+      //     </div>
+      //   ):(
+      //     <div>
+      //       {this.state.housesToRender.length == 0? (
+      //         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', height: '100vh' }} className="container">
+      //           <BeatLoader 
+      //             size={50}
+      //             color={'black'}
+      //           />
+      //           <h1>No results</h1>
+      //         </div>
+      //       ):(
+      //         <Recent title={'Results'} houses={this.state.housesToRender} />
+      //       )}
+      //     </div>
+      //   )}
+      // </>
+
+      <MapComponent
+        center={{
+          lat: this.props.location.state.coords.lat,
+          lng: this.props.location.state.coords.lng
+        }}
+      />
     )
   }
 }

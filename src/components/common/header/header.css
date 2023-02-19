@@ -35,10 +35,18 @@ header .toggle {
   display: none;
 }
 
-.logo > img {
-  /* display: flex; */
+/* .logo > img {
   height: 50%;
   width: 100px;
+} */
+
+.logo > p {
+  font-style:unset;
+  font-size: large;
+  vertical-align:middle;
+  font-weight:600;
+  align-self: center;
+
 }
 
 .btn1{
@@ -68,7 +76,7 @@ header .toggle {
     top: 10vh;
     left: 0;
     width: 100%;
-    background-color: #27ae60;
+    background-color: #363636;
     padding: 20px;
   }
   header li a {
@@ -77,9 +85,17 @@ header .toggle {
     color: #fff;
   }
 
-  .logo > img {
-    /* display: flex; */
+  /* .logo > img {
     height: 100%;
     width: 80px;
+  } */
+
+  .logo > p {
+    font-style:unset;
+    font-size: large;
+    vertical-align:middle;
+    font-weight:600;
+    align-self: center;
+    margin-top: 20px;
   }
 }
