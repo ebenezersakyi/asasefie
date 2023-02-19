@@ -1,4 +1,5 @@
 import React from "react"
+import Footer from "../../common/footer/Footer"
 import Heading from "../../common/Heading"
 import "./Property.css"
 import RecentCard from "./PropertyCard"
@@ -6,12 +7,13 @@ import RecentCard from "./PropertyCard"
 const Recent = (props) => {
   return (
     <>
-      <section className='recent padding'>
-        <div className='container'>
+      <section className='container__main'>
+        {/* <div className='container'> */}
           <Heading title={props.title} subtitle='' />
           <RecentCard houses={props.houses} />
-        </div>
+        {/* </div> */}
       </section>
+      {/* <Footer /> */}
     </>
   )
 }

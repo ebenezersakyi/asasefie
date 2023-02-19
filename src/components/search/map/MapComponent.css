@@ -1,0 +1,9 @@
+.house__result{
+    /* position: absolute; */
+    /* right: 0; */
+    display: flex;
+    width: 30%;
+    /* flex-direction: column; */
+    z-index: 1;
+    height: 90vh;
+}

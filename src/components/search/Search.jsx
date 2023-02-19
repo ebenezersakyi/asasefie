@@ -101,37 +101,37 @@ export class Search extends Component {
 
   render() {
     return (
-      // <>
-      //   {this.state.loadingHouses?(
-      //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} className="container">
-      //       <BeatLoader 
-      //         size={90}
-      //         color={'black'}
-      //       />
-      //     </div>
-      //   ):(
-      //     <div>
-      //       {this.state.housesToRender.length == 0? (
-      //         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', height: '100vh' }} className="container">
-      //           <BeatLoader 
-      //             size={50}
-      //             color={'black'}
-      //           />
-      //           <h1>No results</h1>
-      //         </div>
-      //       ):(
-      //         <Recent title={'Results'} houses={this.state.housesToRender} />
-      //       )}
-      //     </div>
-      //   )}
-      // </>
+      <>
+        {this.state.loadingHouses && this.state.housesToRender.length == 0?(
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }} className="container">
+            <BeatLoader 
+              size={90}
+              color={'black'}
+            />
+          </div>
+        ):(
+          <div>
+            {this.state.housesToRender.length == 0? (
+              <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', height: '100vh' }} className="container">
+                <BeatLoader 
+                  size={50}
+                  color={'black'}
+                />
+                <h1>No results</h1>
+              </div>
+            ):(
+              <Recent title={'Results'} houses={this.state.housesToRender} />
+            )}
+          </div>
+        )}
+      </>
 
-      <MapComponent
-        center={{
-          lat: this.props.location.state.coords.lat,
-          lng: this.props.location.state.coords.lng
-        }}
-      />
+      // <MapComponent
+      //   center={{
+      //     lat: this.props.location.state.coords.lat,
+      //     lng: this.props.location.state.coords.lng
+      //   }}
+      // />
     )
   }
 }

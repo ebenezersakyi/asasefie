@@ -1,10 +1,11 @@
 import React, {useEffect, useState, useMemo, useRef} from 'react'
 import { GoogleMap, useJsApiLoader, Marker, InfoBox } from '@react-google-maps/api';
+import RecentCard from '../../home/property/PropertyCard';
 const pointInPolygon = require('point-in-polygon');
 
 
 const containerStyle = {
-    width: '100%',
+    width: '70%',
     height: '90vh'
   };
   
@@ -23,113 +24,103 @@ const containerStyle = {
   }
 
 function MapComponent(props) {
-    const[turfBoundaries, setTurfBoundaries] = useState([])
-    const[mapBoundaries, setMapBoundaries] = useState([])
-    const[housesFromDb, setHousesFromDb] = useState([])
-    const[housesToRender, setHouseToRender] = useState([])
-    const[zoomedFar, setZoomedFar] = useState(false)
+    const [turfBoundaries, setTurfBoundaries] = useState([]);
+    const [mapBoundaries, setMapBoundaries] = useState([]);
+    const [housesFromDb, setHousesFromDb] = useState([]);
+    const [housesToRender, setHouseToRender] = useState([]);
+    const [zoomedFar, setZoomedFar] = useState(false);
     const [selectedMarker, setSelectedMarker] = useState(null);
     const [selectedMarkerPosition, setSelectedMarkerPosition] = useState(null);
-
+  
     const mapRef = useRef(null);
-
-
+  
     const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY
-    })
-
-    const [map, setMap] = React.useState(null)
-
+      id: 'google-map-script',
+      googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+    });
+  
+    const [map, setMap] = React.useState(null);
+  
     const onLoad = React.useCallback(function callback(map) {
-        mapRef.current = map;
-        const bounds = new window.google.maps.LatLngBounds(center);
-        map.fitBounds(bounds);
-    
-        setMap(map)
-    }, [])
-    
+      mapRef.current = map;
+      const bounds = new window.google.maps.LatLngBounds(center);
+      map.fitBounds(bounds);
+  
+      setMap(map);
+      onDragEnd();
+    }, []);
+  
     const onUnmount = React.useCallback(function callback(map) {
-        setMap(null)
-    }, [])
-
+      setMap(null);
+    }, []);
+  
     const onDragEnd = async () => {
-        const map = mapRef.current;
-        let zoomLevel = map.getZoom()
-        if (zoomLevel < 14){
-            setZoomedFar(true)
-        }else{
-            setZoomedFar(false)
-        }
-
-        // let neLat = await map.getBounds().getNorthEast().lat();
-        // let neLng = await map.getBounds().getNorthEast().lng();
-        // let swLat = await map.getBounds().getSouthWest().lat();
-        // let swLng = await map.getBounds().getSouthWest().lng();
-
-        const bounds = map.getBounds();
-    
-        const ne = bounds.getNorthEast();
-        const sw = bounds.getSouthWest();
-    
-        const nw = new window.google.maps.LatLng(ne.lat(), sw.lng());
-        const se = new window.google.maps.LatLng(sw.lat(), ne.lng());
-    
-        const polygonCoords = [
-          [ ne.lat(), ne.lng() ],
-          [ nw.lat(), nw.lng() ],
-          [ sw.lat(), sw.lng() ],
-          [ se.lat(), se.lng() ],
-          [ ne.lat(), ne.lng() ]
-        ];
-
-        const polygonCoords2 = [
-            [ne.lng(), ne.lat()],
-            [nw.lng(), nw.lat()],
-            [sw.lng(), sw.lat()],
-            [se.lng(), se.lat()],
-            [ne.lng(), ne.lat()]
-          ];
-
-        setTurfBoundaries(polygonCoords)
-        setMapBoundaries(polygonCoords2)
-        if(mapBoundaries.length  !==  0){
-            sendMapBoundaries()
-            // console.log("coords", mapBoundaries)
-          }
+      const map = mapRef.current;
+      let zoomLevel = map.getZoom();
+      if (zoomLevel < 14) {
+        setZoomedFar(true);
+      } else {
+        setZoomedFar(false);
+      }
+  
+      const bounds = map.getBounds();
+  
+      const ne = bounds.getNorthEast();
+      const sw = bounds.getSouthWest();
+  
+      const nw = new window.google.maps.LatLng(ne.lat(), sw.lng());
+      const se = new window.google.maps.LatLng(sw.lat(), ne.lng());
+  
+      const polygonCoords = [
+        [ne.lat(), ne.lng()],
+        [nw.lat(), nw.lng()],
+        [sw.lat(), sw.lng()],
+        [se.lat(), se.lng()],
+        [ne.lat(), ne.lng()],
+      ];
+  
+      const polygonCoords2 = [
+        [ne.lng(), ne.lat()],
+        [nw.lng(), nw.lat()],
+        [sw.lng(), sw.lat()],
+        [se.lng(), se.lat()],
+        [ne.lng(), ne.lat()],
+      ];
+  
+      setTurfBoundaries(polygonCoords);
+      setMapBoundaries(polygonCoords2);
+  
+      if (mapBoundaries.length !== 0) {
+        fetchHousesWithinBoundary();
+      }
     };
-
-    const sendMapBoundaries = async () => {
-        const data = mapBoundaries
-        try{
-          const apiResponse = await fetch(`${process.env.REACT_APP_API_URL}/houseswithinboundary`, {
-              method: 'POST',
-              headers: {
-              'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
-          })
-          const data2 = await apiResponse.json()
-          console.log('data from api', data2.data)
-        //   this.setState({housesFromDb: data2.data})
-          setHousesFromDb(data2.data)
-          console.log(housesFromDb)
-          if(housesFromDb.length == 0){
-            setHouseToRender([])
-            // this.setState({housesToRender: []})
-            // this.setState({ loadingHouses: false })
-            // setHouseToRender([])
-          }else{
-            // this.setState({ showMarkers: false })
-            housesFilter()
+  
+    const fetchHousesWithinBoundary = async () => {
+      const data = mapBoundaries;
+      try {
+        const apiResponse = await fetch(
+          `${process.env.REACT_APP_API_URL}/houseswithinboundary`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
           }
-          } catch(error) {
-            console.log(error)
-            // this.setState({ loadingHouses: false })
-          } finally {
-            
-          }
-    }
+        );
+        const data2 = await apiResponse.json();
+        console.log('data from api', data2.data);
+        setHousesFromDb(data2.data);
+        console.log(housesFromDb);
+        if (housesFromDb.length == 0) {
+          setHouseToRender([]);
+        } else {
+          housesFilter();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
     const housesFilter = () => {
         const houses = housesFromDb.map((item, index) => {
@@ -168,6 +159,7 @@ function MapComponent(props) {
       }, []);
     
     return isLoaded ? (
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
         <GoogleMap
             id="map"
             mapContainerStyle={containerStyle}
@@ -184,20 +176,23 @@ function MapComponent(props) {
                     <p>Zomed out too far</p>
                 </div>
             ):(null)}
+
             {housesToRender.map((marker) => (
                 <Marker
-                icon={{
-                    url: require('../../images/marker.png'),
-                    scaledSize: {
-                      width: 50,
-                      height: 50
-                    }
-                }}
+                // icon={{
+                //     url: require('../../images/marker.png'),
+                //     scaledSize: {
+                //       width: 50,
+                //       height: 50
+                //     }
+                // }}
+                
                 key={marker._id}
                 position={{lat: marker.houseCoordinates.coordinates[1],lng: marker.houseCoordinates.coordinates[0]}}
                 onClick={() => onChildClick(marker)}
                 />
             ))}
+
             {selectedMarker && selectedMarkerPosition && (
                 <InfoBox
                 position={selectedMarkerPosition}
@@ -211,8 +206,12 @@ function MapComponent(props) {
                 </div>
                 </InfoBox>
             )}
-          <></>
+
         </GoogleMap>
+        <div className="house__result">
+            <RecentCard houses={housesToRender} />
+        </div>
+        </div>
     ) : <></>
 }
 

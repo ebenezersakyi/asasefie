@@ -1,0 +1,38 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 0;
+  }
+  
+  .download-apps {
+    margin-bottom: 30px;
+  }
+  
+  .app-linkss{
+    justify-content:center;
+    align-items: center;
+    display: flex;
+  }
+
+  .app-linkss a {
+    display: inline-block;
+    margin-right: 20px;
+    color: black;
+  }
+  
+  .footer-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .footer-menu li {
+    margin: 0 10px;
+  }
+  
+  .footer-menu a {
+    color: #fff;
+  }
+  

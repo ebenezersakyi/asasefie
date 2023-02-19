@@ -45,6 +45,7 @@ const Home = () => {
       {/* <Price /> */}
       <Footer />
     </>
+
   )
 }
 
